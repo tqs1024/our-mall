@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title th:text=" '商城-' + ${sorttype}"></title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+
+    <!--可以在收藏夹中显示出图标-->
+    <link rel="Bookmark" type="image/png" href="images/logo.png"/>
+    <!--可以在地址栏中显示出图标-->
+    <link rel="icon" type="image/png" href="images/logo.png"/>
+    <link rel="shortcut icon" type="image/png" href="images/logo.png"/>
+</head>
+
+<body>
+<!-- 头 -->
+<div class="header w">
+    <!-- logo部分 -->
+    <a th:href="@{/home}">
+        <div class="logo" style="width: 60px">
+            <img src="images/logo.png" alt="商城">
+        </div>
+        <div class="logo" style="width: 300px">
+            <img src="images/logo2.png" alt="商城">
+        </div>
+    </a>
+    <!-- 搜索框 -->
+    <div class="search">
+        <input type="text" value="给时光以生命，给岁月以文明。"/>
+        <button type="button"><img src="images/search.png" alt="搜索"></button>
+    </div>
+    <div class="user">
+        <img src="images/avatar.jpg" alt="头像" width="42px" height="42px">
+        ${username}
+    </div>
+</div>
+
+<div align="center">
+    <!--轮播图-->
+    <div class="layui-carousel" id="test1">
+        <div carousel-item>
+            <div><img src="images/lb1.jpg"></div>
+            <div><img src="images/lb2.jpg"></div>
+            <div><img src="images/lb.jpg"></div>
+            <div><img src="images/lb3.jpg"></div>
+            <div><img src="images/lb4.jpg"></div>
+            <div><img src="images/lb5.jpg"></div>
+        </div>
+    </div>
+    <!-- 条目中可以是任意内容，如：<img src=""> -->
+
+    <script src="layui/layui.js"></script>
+    <script>
+        layui.use('carousel', function () {
+            var carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#test1'
+                , width: '1200px' //设置容器宽度
+                , height: '375px'
+                , anim: 'fade' //切换动画方式
+                , interval: 1000
+                , index: 1
+            });
+        });
+    </script>
+</div>
+<!-- 推荐 -->
+<div class="goods w">
+    <ul>
+        <li><a th:href="@{/sort?typeid=1}" th:text="数码"></a></li>
+        <li><a th:href="@{/sort?typeid=2}" th:text="智能家居"></a></li>
+        <li><a th:href="@{/sort?typeid=3}" th:text="汽车及周边"></a></li>
+        <li><a th:href="@{/sort?typeid=4}" th:text="饮食美酒"></a></li>
+    </ul>
+</div>
+
+<!-- 精品推荐box-->
+<div class="box w">
+    <div class="box-hd">
+        <h3 th:text="${sorttype}"></h3>
+    </div>
+    <div class="box-bd">
+        <ul class="clearfix">
+            <li th:each="g:${goods}" style="margin-bottom: 100px">
+                <em><img src=" images/hot.png" alt="热门推荐"></em>
+                <img th:src="${g.picture}" alt="图片">
+                <a th:href="@{'/details?id='+${g.id}}">
+                    <h4 th:text="${g.name}" style="height: 40px"></h4>
+                </a>
+                <div class="info">
+                    <span th:text=" '￥' +${g.price}+'0' "></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- fotter最下面 -->
+<div class="footer">
+    <div class="w">
+        <div class="copyright">
+            <img src="images/logo.png" alt="logo">
+            <!-- copyright -->
+            <div class="copy-right">
+                <p><a href="https://www.cnblogs.com/200ok" target="_blank">&copy; 2021 摸鱼小队</a>&emsp;
+                    <a href="https://beian.miit.gov.cn" target="_blank">鄂ICP备2021010294号</a>&emsp;
+                    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42280102000451"
+                       target="_blank">
+                        <img src="images/beian.png" alt="公网安备" width="13" height="13"/>鄂公网安备42280102000451号</a>
+                </p>
+            </div>
+            <!-- //copyright -->
+        </div>
+        <div class="linkes">
+
+            <dl>
+                <dt><a href="#">关于滑稽摸鱼商城</a></dt>
+                <dd><a href="#">关于</a></dd>
+                <dd><a href="#">管理团队</a></dd>
+                <dd><a href="#">工作机会</a></dd>
+                <dd><a href="#">客户服务</a></dd>
+                <dd><a href="#">帮助</a></dd>
+            </dl>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

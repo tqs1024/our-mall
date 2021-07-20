@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nb.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.nb.entity.User">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+    </resultMap>
+
+    <!--登录-->
+    <select id="getIdByUsernameAndPassword" resultType="java.lang.Long">
+        SELECT `id`
+        FROM `sm_user`
+        WHERE `account` = #{account}
+          AND `password` = MD5(#{pwd})
+    </select>
+
+    <!--修改密码-->
+    <update id="changePassById">
+        update sm_user
+        set `password` = MD5(#{param2})
+        where id = #{param1}
+    </update>
+
+    <!--注册新用户-->
+    <insert id="addByNameAndPass">
+        insert into sm_user(`account`, `password`)
+        values (#{param1}, MD5(#{param2}))
+    </insert>
+
+    <!--注销用户-->
+
+    <!--查询用户信息（订单需要）-->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select id, account, username, password, address, phone
+        from sm_user
+        where id = #{param1}
+    </select>
+
+    <!--查找用户(注册) -->
+    <select id="registerCheck" resultType="java.lang.Long">
+        select `id`
+        from `sm_user`
+        where `account` = #{param1}
+    </select>
+
+</mapper>

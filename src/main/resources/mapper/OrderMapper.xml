@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nb.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.nb.entity.Order">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="uid" jdbcType="BIGINT" property="uid"/>
+        <result column="gid" jdbcType="BIGINT" property="gid"/>
+        <result column="bid" jdbcType="BIGINT" property="bid"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+        <result column="date_uid" jdbcType="VARCHAR" property="dateUid"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from sm_order
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.nb.entity.Order">
+        insert into sm_order (id, uid, gid, bid,
+                              count, date_uid)
+        values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{gid,jdbcType=BIGINT}, #{bid,jdbcType=BIGINT},
+                #{count,jdbcType=INTEGER}, #{dateUid,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.nb.entity.Order">
+        update sm_order
+        set uid      = #{uid,jdbcType=BIGINT},
+            gid      = #{gid,jdbcType=BIGINT},
+            bid      = #{bid,jdbcType=BIGINT},
+            count    = #{count,jdbcType=INTEGER},
+            date_uid = #{dateUid,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select id, uid, gid, bid, count, date_uid
+        from sm_order
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, uid, gid, bid, count, date_uid
+        from sm_order
+    </select>
+</mapper>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>注册</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1786038_m62pqneyrzf.css">
+    <script type="text/javascript" src="/js/jquery-3.5.1.js"></script>
+    <!--可以在收藏夹中显示出图标-->
+    <link rel="Bookmark" type="image/png" href="images/logo.png"/>
+    <!--可以在地址栏中显示出图标-->
+    <link rel="icon" type="image/png" href="images/logo.png"/>
+    <link rel="shortcut icon" type="image/png" href="images/logo.png"/>
+</head>
+
+<body>
+<div class="form-wrapper">
+    <div class="header">
+        注册成为摸鱼会员
+    </div>
+    <div class="input-wrapper">
+        <div class="border-wrapper">
+            <input type="text" id="NewAccount" name="NewAccount" placeholder="请输入账号" class="border-item"
+                   autocomplete="off">
+        </div>
+        <!--<div class="border-wrapper">
+            <input type="text" id="NewPhone" name="NewPhone" placeholder="请输入联系电话" class="border-item" autocomplete="off">
+        </div>-->
+        <div class="border-wrapper">
+            <input type="password" id="NewAccountPwd" name="NewAccountPwd" placeholder="请输入账户密码" class="border-item"
+                   autocomplete="off">
+        </div>
+        <div class="border-wrapper">
+            <input type="password" id="ConfirmNewPwd" name="ConfirmNewPwd" placeholder="请确认账户密码" class="border-item"
+                   autocomplete="off">
+        </div>
+    </div>
+    <div class="action">
+        <button type="button" class="btn btn-primary" onclick="confirmRegister()">确认注册</button>
+    </div>
+    <div class="action">
+        <button type="button" class="btn btn-default" onclick="Delay()">取消</button>
+    </div>
+
+    <div class="icon-wrapper">
+        <i class="iconfont icon-weixin"></i>
+        <i class="iconfont icon-qq"></i>
+        <i class="iconfont icon-git"></i>
+    </div>
+</div>
+<script type="text/javascript" src="/js/register.js"></script>
+
+
+</body>
+</html>

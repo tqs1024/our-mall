@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nb.mapper.ShoppingcartMapper">
+    <resultMap id="BaseResultMap" type="com.nb.entity.Shoppingcart">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="uid" jdbcType="BIGINT" property="uid"/>
+        <result column="gid" jdbcType="BIGINT" property="gid"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from sm_shoppingcart
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.nb.entity.Shoppingcart">
+        insert into sm_shoppingcart (id, uid, gid)
+        values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{gid,jdbcType=BIGINT})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.nb.entity.Shoppingcart">
+        update sm_shoppingcart
+        set uid = #{uid,jdbcType=BIGINT},
+            gid = #{gid,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select id, uid, gid
+        from sm_shoppingcart
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, uid, gid
+        from sm_shoppingcart
+    </select>
+</mapper>
