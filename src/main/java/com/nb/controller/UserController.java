@@ -62,6 +62,19 @@ public class UserController {
         return service.addByNameAndPass(NewAccount, NewAccountPwd);
     }
 
+    /**
+      * @Params [session]
+      * @Return {@link String}
+      * @Author 谭庆山
+      * @Date 2021/7/20 15:31
+      * @Description 销毁session，返回登录页
+      */
+    @GetMapping("logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
     /*查找用户信息（订单需要）*/
 
 }

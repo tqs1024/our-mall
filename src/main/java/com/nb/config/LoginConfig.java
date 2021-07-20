@@ -18,9 +18,9 @@ public class LoginConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration registration = registry.addInterceptor(new LoginInterceptor());
         registration.addPathPatterns("/**");
-        registration.excludePathPatterns("/login", "/index", "/home", "/", "/sort/**", "/details/**",
-                "/**/*.html", "/**/*.js", "/**/*.css", "/**/*.jpg", "/**/*.png", "/**/*.eot", "/**/*.svg",
-                "/**/*.ttf", "/**/*.woff", "/**/*.woff2");
-
+        //需要放出主页，分类页，详情页，注册页，还有登出控制器。
+        registration.excludePathPatterns("/login", "/check", "/registerhtml", "/registerCheck", "/register", "/logout",
+                "/index", "/home", "/", "/sort/**", "/details", "/**/*.html", "/**/*.js", "/**/*.css", "/**/*.jpg", "/**/*.png",
+                "/**/*.eot", "/**/*.svg", "/**/*.ttf", "/**/*.woff", "/**/*.woff2");
     }
 }
