@@ -31,9 +31,10 @@ public class UserController {
     public Long login(String account, String password, HttpSession session) {
         Long userId = service.getIdByUsernameAndPassword(account, password);
         session.setAttribute("userId", userId);
+        //session添加username以便登录展示
+        //
         return userId;
     }
-    /*修改密码*/
 
     /**
      * 注册用户
@@ -63,18 +64,35 @@ public class UserController {
     }
 
     /**
-      * @Params [session]
-      * @Return {@link String}
-      * @Author 谭庆山
-      * @Date 2021/7/20 15:31
-      * @Description 销毁session，返回登录页
-      */
+     * @Params [session]
+     * @Return {@link String}
+     * @Author 谭庆山
+     * @Date 2021/7/20 15:31
+     * @Description 销毁session，返回登录页
+     */
     @GetMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/home";
     }
 
-    /*查找用户信息（订单需要）*/
+    /**
+     * 修改密码
+     */
+    @GetMapping("/changePwdhtml")
+    public String changePwdhtml() {
+        return "changePwd";
+    }
+
+    @GetMapping("/changePwdCheck")
+    @ResponseBody
+    public Long changePwdCheck(String account, String password) {
+        return service.getIdByUsernameAndPassword(account, password);
+    }
+
+    @RequestMapping("/changePwd")
+    public boolean changePassByAccount(String account, String changePwd) {
+        return service.changePassByAccount(account, changePwd);
+    }
 
 }

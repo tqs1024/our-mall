@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
 
+    <script src="js/jquery-3.5.1.js"></script>
+
     <!--可以在收藏夹中显示出图标-->
     <link rel="Bookmark" type="image/png" href="images/logo.png"/>
     <!--可以在地址栏中显示出图标-->
@@ -27,12 +29,45 @@
     </a>
     <!-- 搜索框 -->
     <div class="search">
-        <input type="text" value="给时光以生命，给岁月以文明。"/>
+        <input type="text" placeholder="给时光以生命，给岁月以文明。"/>
         <button type="button"><img src="images/search.png" alt="搜索"></button>
     </div>
     <div class="user">
         <img src="images/avatar.jpg" alt="头像" width="42px" height="42px">
-        ${username}
+        <!---->
+        <a th:href="@{/}">
+            <button
+                    style="width: 60px;height: 42px;background: #fc600c;border-style: none;color: white;">
+                购物车
+            </button>
+        </a>
+        <a th:href="@{/order}">
+            <button
+                    style="width: 60px;height: 42px;background: #ca151d;border-style: none;color: white;">
+                订单中心
+            </button>
+        </a>
+        <!--登录/登出按钮：根据session状态判断-->
+        <button th:text="${session.userId} eq null ? '登录':'登出' "
+                th:onclick="${session.userId} eq null ? 'userlogin()' : 'userlogout()' "
+                style="width: 60px;height: 42px;background: #ca151d;border-style: none;color: white;">
+        </button>
+
+        <script>
+            function userlogin() {
+                window.location.href = "http://localhost:8081/login";
+            }
+
+            function userlogout() {
+                $.ajax({
+                    url: '/logout',
+                    success: () => {
+                        window.location.href = "http://localhost:8081/";
+                    }
+                })
+            }
+        </script>
+        <!--登录/登出-->
     </div>
 </div>
 
@@ -99,7 +134,7 @@
 <div class="footer">
     <div class="w">
         <div class="copyright">
-            <img src="images/logo.png" alt="logo">
+            <img src="images/huaji.gif" alt="logo">
             <!-- copyright -->
             <div class="copy-right">
                 <p><a href="https://www.cnblogs.com/200ok" target="_blank">&copy; 2021 摸鱼小队</a>&emsp;

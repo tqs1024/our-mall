@@ -27,12 +27,21 @@
     </a>
     <!-- 搜索框 -->
     <div class="search">
-        <input type="text" value="给时光以生命，给岁月以文明。"/>
+        <input type="text" placeholder="给时光以生命，给岁月以文明。"/>
         <button type="button"><img src="images/search.png" alt="搜索"></button>
     </div>
     <div class="user">
         <img src="images/avatar.jpg" alt="头像" width="42px" height="42px">
-        ${username}
+        <!---->
+        <button
+                style="width: 60px;height: 42px;background: #fc600c;border-style: none;color: white;">
+            购物车
+        </button>
+        <button
+                style="width: 60px;height: 42px;background: #ca151d;border-style: none;color: white;">
+            订单中心
+        </button>
+        <!--        -->
     </div>
 </div>
 
@@ -84,7 +93,6 @@
     <div class="box-bd">
         <ul class="clearfix">
             <li th:each="g:${goods}" style="margin-bottom: 100px">
-                <em><img src=" images/hot.png" alt="热门推荐"></em>
                 <img th:src="${g.picture}" alt="图片">
                 <a th:href="@{'/details?id='+${g.id}}">
                     <h4 th:text="${g.name}" style="height: 40px"></h4>
@@ -100,7 +108,7 @@
 <div class="footer">
     <div class="w">
         <div class="copyright">
-            <img src="images/logo.png" alt="logo">
+            <img src="images/huaji.gif" alt="logo">
             <!-- copyright -->
             <div class="copy-right">
                 <p><a href="https://www.cnblogs.com/200ok" target="_blank">&copy; 2021 摸鱼小队</a>&emsp;

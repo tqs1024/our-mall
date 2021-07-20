@@ -19,11 +19,19 @@
     </select>
 
     <!--修改密码-->
-    <update id="changePassById">
-        update sm_user
+    <update id="changePassByAccount">
+        update `sm_user`
         set `password` = MD5(#{param2})
-        where id = #{param1}
+        where `account` = #{param1}
     </update>
+
+    <!--查找用户名和密码（修改密码）-->
+    <select id="changePwdCheck" resultType="java.lang.Long">
+        select `id`
+        from `sm_user`
+        where `account` = #{param1}
+          AND `password` = MD5(#{param2})
+    </select>
 
     <!--注册新用户-->
     <insert id="addByNameAndPass">
@@ -35,9 +43,9 @@
 
     <!--查询用户信息（订单需要）-->
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select id, account, username, password, address, phone
-        from sm_user
-        where id = #{param1}
+        select `id`, `account`, `username`, `password`, `address`, `phone`
+        from `sm_user`
+        where `id` = #{param1}
     </select>
 
     <!--查找用户(注册) -->
@@ -46,5 +54,4 @@
         from `sm_user`
         where `account` = #{param1}
     </select>
-
 </mapper>

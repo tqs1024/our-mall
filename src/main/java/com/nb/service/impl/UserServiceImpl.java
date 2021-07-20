@@ -35,12 +35,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean registerCheck(String NewAccount) {
-        return mapper.registerCheck(NewAccount) == null ? true : false;
+        return mapper.registerCheck(NewAccount) == null;
     }
 
     @Override
     public boolean addByNameAndPass(String NewAccount, String NewAccountPwd) {
-        return mapper.addByNameAndPass(NewAccount, NewAccountPwd) == 0 ? false : true;
+        return mapper.addByNameAndPass(NewAccount, NewAccountPwd) != 0;
     }
 
     /**
@@ -49,6 +49,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selectByPrimaryKey(Long id) {
         return null;
+    }
+
+
+    @Override
+    public boolean changePwdCheck(String account, String pasword) {
+        return mapper.changePwdCheck(account, pasword) != null;
+    }
+
+    /**
+     * 修改密码
+     */
+    @Override
+    public boolean changePassByAccount(String account, String changePwd) {
+        return mapper.changePassByAccount(account, changePwd) != 0;
     }
 
 }

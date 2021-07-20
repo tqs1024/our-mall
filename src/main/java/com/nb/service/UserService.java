@@ -31,4 +31,15 @@ public interface UserService {
      */
     boolean registerCheck(String NewAccount);
 
+    /**
+     * 查找用户密码（修改密码）
+     */
+    boolean changePwdCheck(String account, String password);
+
+    /**
+     * 修改密码
+     */
+    boolean changePassByAccount(@Param("account") String account, @Param("newpwd") String changePwd);
+
+
 }

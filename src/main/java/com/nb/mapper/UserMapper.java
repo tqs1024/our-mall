@@ -3,6 +3,8 @@ package com.nb.mapper;
 import com.nb.entity.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserMapper {
 
     /**
@@ -13,7 +15,12 @@ public interface UserMapper {
     /**
      * 修改密码
      */
-    int changePassById(@Param("id") Long id, @Param("newpwd") String newPassword);
+    int changePassByAccount(@Param("account") String account, @Param("newpwd") String changePwd);
+
+    /**
+     * 查询账户及密码（修改密码所需）
+     */
+    Long changePwdCheck(@Param("account") String account, @Param("password") String password);
 
     /**
      * 查找用户(注册)
@@ -28,17 +35,5 @@ public interface UserMapper {
     /**
      * 查找用户信息（订单需要）
      */
-    User selectByPrimaryKey(Long id);
-
-    /*注销用户*/
-    //int discardById(@Param("id") Long id);
-
-    /*插入*/
-    //int insert(User record);
-
-    /*展示用户列表*/
-    //List<User> selectAll();
-
-    /*更新*/
-    //int updateByPrimaryKey(User record);
+    List<User> selectByPrimaryKey(@Param("id") Long id);
 }

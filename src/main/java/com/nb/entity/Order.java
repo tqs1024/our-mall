@@ -22,4 +22,6 @@ public class Order {
     private Integer count;
 
     private String dateUid;
+
+    private boolean deleted;
 }

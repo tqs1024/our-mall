@@ -30,12 +30,21 @@
     </a>
     <!-- 搜索框 -->
     <div class="search">
-        <input type="text" value="给时光以生命，给岁月以文明。"/>
+        <input type="text" placeholder="给时光以生命，给岁月以文明。"/>
         <button type="button"><img src="images/search.png" alt="搜索"></button>
     </div>
     <div class="user">
         <img src="images/avatar.jpg" alt="头像" width="42px" height="42px">
-        ${username}
+        <!---->
+        <button
+                style="width: 60px;height: 42px;background: #fc600c;border-style: none;color: white;">
+            购物车
+        </button>
+        <button
+                style="width: 60px;height: 42px;background: #ca151d;border-style: none;color: white;">
+            订单中心
+        </button>
+        <!--        -->
     </div>
 </div>
 
@@ -44,22 +53,43 @@
     <!--商品图片-->
     <div class="layui-col-md5 layui-col-md-offset1">
         <div class="grid-demo grid-demo-bg1">
-            <img th:src="${goods.picture}" style="height: 460px; width: 460px" alt="商品图片">
+            <img th:src="${goods.picture}" style="height: 460px; width: 460px" alt="商品图片" id="img1">
         </div>
     </div>
     <!--商品详情-->
     <div class="layui-col-md5">
-        <div class="grid-demo grid-demo-bg1" style="margin-top: 20px">
+        <div class="grid-demo grid-demo-bg1" style="margin-top: 30px">
             <h1 th:text="${goods.name}"></h1>
             <h2 th:text="${goods.describe}" style="margin-top: 10px"></h2>
 
-            <div style="background: #f5f5f5; height: 70px; margin-top: 20px">
-                <h2 th:text=" '价 格&emsp;￥'+${goods.price}+'0' " style="color: red"></h2>
-                <h2 th:text=" '库 存&emsp;'+${goods.stock}"></h2>
+            <div style="background: #f5f5f5; height: 70px; margin-top: 30px">
+                <h1 th:text=" '价 格&emsp;￥'+${goods.price}+'0' " style="color: red"></h1>
+                <h2 th:text=" '库&emsp;存&emsp;&emsp;'+${goods.stock} + '件' "></h2>
             </div>
-            <div>
-                <h3
-                        th:text="${goods.id} eq 3 ? '由第三方商家重庆金康赛力斯汽车销售有限公司提供商品、发货开票及售后服务 ' : '已满233元已免运费'  "></h3>
+            <h3 th:text="${goods.id} eq 3 ? '由第三方商家重庆金康赛力斯汽车销售有限公司提供商品、发货开票及售后服务 ' : '已满233元已免运费'  "></h3>
+
+            <!---->
+            <div style="margin-top: 30px;height: 30px">
+                <input type="number" min="0" max="10" style="width: 50px;height: 26px">
+                <span style="font-size: 20px">选择数量</span>
+            </div>
+            <!---->
+
+
+            <div style="margin-top: 30px">
+
+                <a th:href="@{/}">
+                    <button
+                            style="width: 172px;height: 46px;background: #fc600c;border-style: none;color: white;font-size: 18px">
+                        加入购物车
+                    </button>
+                </a>
+                <a th:href="@{/}">
+                    <button
+                            style="width: 172px;height: 46px;background: #ca151d;border-style: none;color: white;font-size: 18px">
+                        立即购买
+                    </button>
+                </a>
             </div>
         </div>
     </div>
@@ -70,7 +100,7 @@
 <div class="footer">
     <div class="w">
         <div class="copyright">
-            <img src="images/logo.png" alt="logo">
+            <img src="images/huaji.gif" alt="logo">
             <!-- copyright -->
             <div class="copy-right">
                 <p><a href="https://www.cnblogs.com/200ok" target="_blank">&copy; 2021 摸鱼小队</a>&emsp;
