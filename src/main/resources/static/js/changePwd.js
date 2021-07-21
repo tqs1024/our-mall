@@ -29,6 +29,6 @@ function confirmChange(userId) {
 
 function DelayC() {
     $.ajax(
-        location.href = "/user/login"
+        location.href = "/login"
     );
 }

@@ -99,13 +99,11 @@
             <td id="${good.name}" th:text="${good.name}"></td>
             <td id="${good.describe}" th:text="${good.describe}"></td>
             <td id="${good.price}" th:text="${good.price}"></td>
-            <!--                    <td><a href="" class="btn btn-success" th:onclick="'showOrder(\''+${good.gid}+'\',\''+${good.name}+'\',\''+${good.describe}+'\',\''+${good.price}+'\')'" type="button">购买</a><a type="button" th:href="@{/shoppingcart/deleteshoppingcart(id=${good.id})}" class="btn btn-danger">删除</a></td>-->
             <td><a href="javascript:void(0);" class="btn btn-xs btn-success" onclick="showOrder(this)"
                    th:data-id="${good.id}" th:data-gid="${good.gid }" th:data-name="${good.name }"
                    th:data-describe="${good.describe }" th:data-price="${good.price }" type="button">购买</a><a
                     type="button" th:href="@{/deleteshoppingcart(id=${good.id})}" class="btn btn-xs btn-danger">删除</a>
             </td>
-            <!--                    <td><a type="button" th:href="@{/shoppingcart/deleteshoppingcart(id=${good.id})}" class="btn btn-danger">删除</a></td>-->
         </tr>
         </tbody>
     </table>
@@ -162,16 +160,6 @@
             </div>
         </div>
     </form>
-    <!--        <form action="" method="get">-->
-    <!--            <input id="uid" type="text">-->
-    <!--            <input id="gid" type="text">-->
-    <!--            <input id="name" type="text">-->
-    <!--            <input id="discribe" type="text">-->
-    <!--            <input id="number" type="number">-->
-    <!--            <input id="total" type="text">-->
-    <!--            <button type="submit">购买</button>-->
-    <!--            <button type="button" onclick="quxiao()">取消</button>-->
-    <!--        </form>-->
 </div>
 
 <!-- fotter最下面 -->
@@ -298,17 +286,6 @@
                     alert("购买成功");
                     quxiao();
                     location.href = "/deleteshoppingcart?id=" + id;
-                    // $.ajax({
-                    //     url: "/deleteshoppingcart",
-                    //     data: {
-                    //         "id": id
-                    //     },
-                    //     type: "GET",
-                    //     dataType: "json",
-                    //     success: function (resp) {
-                    //         console.log(resp);
-                    //     }
-                    // })
                 } else {
                     alert("购买失败");
                 }
