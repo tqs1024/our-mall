@@ -32,7 +32,7 @@ public class UserController {
         Long userId = service.getIdByUsernameAndPassword(account, password);
         session.setAttribute("userId", userId);
         //session添加username以便登录展示
-        //
+        session.setAttribute("username", service.getNameOnLogin(account, password));
         return userId;
     }
 

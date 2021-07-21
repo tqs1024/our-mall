@@ -42,4 +42,8 @@ public interface UserService {
     boolean changePassByAccount(@Param("account") String account, @Param("newpwd") String changePwd);
 
 
+    /**
+     * 用作登录成功时查找用户名
+     */
+    String getNameOnLogin(String account, String password);
 }

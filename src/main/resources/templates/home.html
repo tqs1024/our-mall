@@ -34,6 +34,7 @@
     </div>
     <div class="user">
         <img src="images/avatar.jpg" alt="头像" width="42px" height="42px">
+        <span th:text="${session.username} eq null ? '欢迎，游客': '欢迎，'+${session.username} " style="color: red"></span>
         <!---->
         <a th:href="@{/}">
             <button

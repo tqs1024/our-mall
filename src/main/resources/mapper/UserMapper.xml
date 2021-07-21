@@ -54,4 +54,11 @@
         from `sm_user`
         where `account` = #{param1}
     </select>
+
+    <select id="getUsernameOnLogin" resultType="java.lang.String">
+        SELECT `username`
+        FROM `sm_user`
+        WHERE `account` = #{param1}
+          AND `password` = MD5(#{param2})
+    </select>
 </mapper>

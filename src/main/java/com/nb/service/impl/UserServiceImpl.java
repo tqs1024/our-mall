@@ -65,4 +65,9 @@ public class UserServiceImpl implements UserService {
         return mapper.changePassByAccount(account, changePwd) != 0;
     }
 
+    @Override
+    public String getNameOnLogin(String account, String password) {
+        return mapper.getUsernameOnLogin(account, password);
+    }
+
 }

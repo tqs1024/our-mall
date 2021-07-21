@@ -12,6 +12,16 @@ public interface UserMapper {
      */
     Long getIdByUsernameAndPassword(@Param("account") String account, @Param("pwd") String password);
 
+
+    /**
+     * @Params [account, password]
+     * @Return {@link String}
+     * @Author 谭庆山
+     * @Date 2021/7/21 8:09
+     * @Description 登录成功时取出用户名，用作主页展示。
+     */
+    String getUsernameOnLogin(String account, String password);
+
     /**
      * 修改密码
      */
