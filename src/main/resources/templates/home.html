@@ -33,7 +33,8 @@
         <button type="button"><img src="images/search.png" alt="搜索"></button>
     </div>
     <div class="user">
-        <img src="images/avatar.jpg" alt="头像" width="42px" height="42px">
+        <img src="images/avatar.jpg" alt="头像" width="42px" height="42px"
+             th:onclick="${session.userId} eq null ? '': 'changeinfo()' ">
         <span th:text="${session.username} eq null ? '欢迎，游客': '欢迎，'+${session.username} " style="color: red"></span>
         <!---->
         <a th:href="@{/}">
@@ -66,6 +67,10 @@
                         window.location.href = "http://localhost:8081/";
                     }
                 })
+            }
+
+            function changeinfo() {
+                window.location.href = "http://localhost:8081/changePwdhtml";
             }
         </script>
         <!--登录/登出-->

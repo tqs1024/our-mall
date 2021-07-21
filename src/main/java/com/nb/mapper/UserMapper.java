@@ -46,4 +46,10 @@ public interface UserMapper {
      * 查找用户信息（订单需要）
      */
     List<User> selectByPrimaryKey(@Param("id") Long id);
+
+
+    /**
+     * 当前登录用户修改
+     */
+    int changePasswordById(Long id, String newPassword);
 }

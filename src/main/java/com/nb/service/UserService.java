@@ -46,4 +46,10 @@ public interface UserService {
      * 用作登录成功时查找用户名
      */
     String getNameOnLogin(String account, String password);
+
+
+    /**
+     * 通过id改密码
+     */
+    boolean changePasswordById(Long id, String newPassword);
 }

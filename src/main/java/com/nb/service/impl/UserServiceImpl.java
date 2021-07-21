@@ -70,4 +70,9 @@ public class UserServiceImpl implements UserService {
         return mapper.getUsernameOnLogin(account, password);
     }
 
+    @Override
+    public boolean changePasswordById(Long id, String newPassword) {
+        return mapper.changePasswordById(id, newPassword) != 0;
+    }
+
 }

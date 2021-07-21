@@ -95,4 +95,16 @@ public class UserController {
         return service.changePassByAccount(account, changePwd);
     }
 
+    /**
+     * @Params [id, password]
+     * @Return {@link boolean}
+     * @Author 谭庆山
+     * @Date 2021/7/21 8:47
+     * @Description 根据id修改密码
+     */
+    @ResponseBody
+    @GetMapping("/changepassbyid")
+    public Boolean changePasswordById(Long id, String password) {
+        return service.changePasswordById(id, password);
+    }
 }

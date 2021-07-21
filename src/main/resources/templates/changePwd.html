@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>修改密码</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_1786038_m62pqneyrzf.css">
-    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
 
 </head>
 
@@ -16,14 +16,6 @@
     </div>
     <div class="input-wrapper">
         <div class="border-wrapper">
-            <input type="text" id="account" name="account" placeholder="请输入账户名" class="border-item" autocomplete="off">
-        </div>
-        <div class="border-wrapper">
-            <input type="password" id="oldPwd" name="oldPwd" placeholder="请输入原密码" class="border-item"
-                   autocomplete="off">
-        </div>
-
-        <div class="border-wrapper">
             <input type="password" id="CNewAccountPwd" name="CNewAccountPwd" placeholder="请输入新密码" class="border-item"
                    autocomplete="off">
         </div>
@@ -33,7 +25,9 @@
         </div>
     </div>
     <div class="action">
-        <button type="button" class="btn btn-primary" onclick="confirmChange()">确认修改</button>
+        <button type="button" class="btn btn-primary"
+                th:onclick=" 'confirmChange('+${session.userId}+')' ">确认修改
+        </button>
     </div>
     <div class="action">
         <button type="button" class="btn btn-default" onclick="DelayC()">取消</button>

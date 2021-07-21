@@ -61,4 +61,11 @@
         WHERE `account` = #{param1}
           AND `password` = MD5(#{param2})
     </select>
+
+
+    <update id="changePasswordById">
+        update `sm_user`
+        set `password`=MD5(#{param2})
+        where `id` = #{param1};
+    </update>
 </mapper>
