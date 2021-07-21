@@ -9,33 +9,28 @@
         <result column="count" jdbcType="INTEGER" property="count"/>
         <result column="date_uid" jdbcType="VARCHAR" property="dateUid"/>
     </resultMap>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete
-        from sm_order
-        where id = #{id,jdbcType=BIGINT}
-    </delete>
-    <insert id="insert" parameterType="com.nb.entity.Order">
-        insert into sm_order (id, uid, gid, bid,
-                              count, date_uid)
-        values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{gid,jdbcType=BIGINT}, #{bid,jdbcType=BIGINT},
-                #{count,jdbcType=INTEGER}, #{dateUid,jdbcType=VARCHAR})
+
+    <!--查询用户的所用订单    -->
+    <select id="selectAllById" resultType="com.nb.vo.OrderVo">
+        select o.id, o.count, o.deleted, g.name, g.describe, g.price
+        from sm_order o
+                 join sm_goods g
+                      on o.gid = g.id
+        where o.uid = #{uid}
+    </select>
+
+    <!--    插入订单-->
+    <insert id="insertOrder">
+        INSERT INTO `sm_order`(`uid`, `gid`, `count`)
+        VALUES(#{uid}, #{gid}, #{count});
     </insert>
-    <update id="updateByPrimaryKey" parameterType="com.nb.entity.Order">
-        update sm_order
-        set uid      = #{uid,jdbcType=BIGINT},
-            gid      = #{gid,jdbcType=BIGINT},
-            bid      = #{bid,jdbcType=BIGINT},
-            count    = #{count,jdbcType=INTEGER},
-            date_uid = #{dateUid,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=BIGINT}
+
+    <!--取消订单    -->
+    <update id="disAbled">
+        UPDATE `sm_order`
+        SET `deleted` = 1
+        WHERE `uid` = #{uid}
+        AND `id` = #{id};
     </update>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select id, uid, gid, bid, count, date_uid
-        from sm_order
-        where id = #{id,jdbcType=BIGINT}
-    </select>
-    <select id="selectAll" resultMap="BaseResultMap">
-        select id, uid, gid, bid, count, date_uid
-        from sm_order
-    </select>
+
 </mapper>

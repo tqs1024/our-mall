@@ -2,22 +2,27 @@
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
-    <title th:text=" '【'+${goods.name}+'】' +' 价格_参数' "></title>
+    <title>订单中心</title>
+
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
-
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 
     <script src="js/jquery-3.5.1.js"></script>
-    <script src="js/details.js"></script>
 
     <!--可以在收藏夹中显示出图标-->
     <link rel="Bookmark" type="image/png" href="images/logo.png"/>
+
     <!--可以在地址栏中显示出图标-->
     <link rel="icon" type="image/png" href="images/logo.png"/>
     <link rel="shortcut icon" type="image/png" href="images/logo.png"/>
+
+    <script type="text/javascript" src="/js/jquery.js"></script>
+
 </head>
 
-<body style="height: 720px">
+<body>
+
 <!-- 头 -->
 <div class="header w">
     <!-- logo部分 -->
@@ -79,57 +84,25 @@
     </div>
 </div>
 
-<!---->
-<div class="layui-row" style="height: 460px">
-    <!--商品图片-->
-    <div class="layui-col-md5 layui-col-md-offset1">
-        <div class="grid-demo grid-demo-bg1">
-            <img th:src="${goods.picture}" style="height: 460px; width: 460px" alt="商品图片" id="img1">
-        </div>
-    </div>
-    <!--商品详情-->
-    <div class="layui-col-md5">
-        <div class="grid-demo grid-demo-bg1" style="margin-top: 30px">
-            <h1 th:text="${goods.name}"></h1>
-            <h2 th:text="${goods.describe}" style="margin-top: 10px"></h2>
+<table class="table table-bordered table-hover" style="width: 1200px; margin: auto">
+    <thead>
+    <tr>
+        <th>订单ID</th>
+        <th>商品名称</th>
+        <th>商品描述</th>
+        <th>价格</th>
+        <th>数量</th>
+        <th>总价</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
 
-            <div style="background: #f5f5f5; height: 70px; margin-top: 30px">
-                <h1 th:text=" '价 格&emsp;￥'+${goods.price}+'0' " style="color: red"></h1>
-                <h2 th:text=" '库&emsp;存&emsp;&emsp;'+${goods.stock} + '件' "></h2>
-            </div>
-            <h3 th:text="${goods.id} eq 3 ? '由第三方商家重庆金康赛力斯汽车销售有限公司提供商品、发货开票及售后服务 ' : '已满233元已免运费'  "></h3>
+    </tbody>
+</table>
+<script type="text/javascript" src="/js/order.js"></script>
 
-            <!---->
-            <div style="margin-top: 30px;height: 30px">
-                <input type="number" min="0" max="10" style="width: 50px;height: 26px" id="count">
-                <span style="font-size: 20px">选择数量</span>
-            </div>
-            <!---->
-
-
-            <div style="margin-top: 30px">
-
-                <a type="button" th:href="@{/insert(gid=${goods.id})}">
-                    <button style="width: 172px; height: 46px; background: #fc600c; border-style: none; color: white; font-size: 18px">
-                        加入购物车
-                    </button>
-                </a>
-                <a>
-                    <button type="button"
-                            style="width: 172px; height: 46px; background: #ca151d; border-style: none; color: white; font-size: 18px"
-                            onclick="insertOrder()">
-                        立即购买
-                    </button>
-                </a>
-                <input type="hidden" th:value="${goods.id}" id="gid">
-            </div>
-            <!---->
-
-            <!--            -->
-        </div>
-    </div>
-</div>
-<!---->
 <!-- fotter最下面 -->
 <div class="footer">
     <div class="w">

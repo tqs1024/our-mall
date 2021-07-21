@@ -30,4 +30,21 @@
         select id, uid, gid
         from sm_shoppingcart
     </select>
+
+
+
+
+
+    <insert id="insertGoodsToShappingCart" parameterType="com.nb.entity.Shoppingcart">
+        insert into shoppingmall.sm_shoppingcart (uid, gid) value (#{uid}, #{gid});
+    </insert>
+
+    <delete id="deleteGoodsInShoppingCart" parameterType="Long">
+        delete from shoppingmall.sm_shoppingcart where id=#{id};
+    </delete>
+
+    <select id="selectAllByUser" parameterType="Long" resultType="com.nb.vo.ShoppingCartOV">
+        SELECT s.id, s.uid, s.gid, g.`name`, g.`describe`, g.price from sm_goods g, sm_shoppingcart s where g.id = s.gid and s.uid=#{id};
+    </select>
+
 </mapper>

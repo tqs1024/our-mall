@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+
+    <!--可以在收藏夹中显示出图标-->
+    <link rel="Bookmark" type="image/png" href="images/logo.png"/>
+    <!--可以在地址栏中显示出图标-->
+    <link rel="icon" type="image/png" href="images/logo.png"/>
+    <link rel="shortcut icon" type="image/png" href="images/logo.png"/>
+</head>
+
+<body>
+
+<!-- 头 -->
+<div class="header w">
+    <!-- logo部分 -->
+    <a th:href="@{/home}">
+        <div class="logo" style="width: 60px">
+            <img src="images/logo.png" alt="商城">
+        </div>
+        <div class="logo" style="width: 300px">
+            <img src="images/logo2.png" alt="商城">
+        </div>
+    </a>
+    <!-- 搜索框 -->
+    <div class="search">
+        <input type="text" placeholder="给时光以生命，给岁月以文明。"/>
+        <button type="button"><img src="images/search.png" alt="搜索"></button>
+    </div>
+    <div class="user">
+        <img src="images/avatar.jpg" alt="头像" width="42px" height="42px"
+             th:onclick="${session.userId} eq null ? '': 'changeinfo()' ">
+        <span th:text="${session.username} eq null ? '欢迎，游客': '欢迎，'+${session.username} " style="color: red"></span>
+        <!---->
+        <a th:href="@{/queryall}">
+            <button
+                    style="width: 60px;height: 42px;background: #fc600c;border-style: none;color: white;">
+                购物车
+            </button>
+        </a>
+        <a th:href="@{/order}">
+            <button
+                    style="width: 60px;height: 42px;background: #ca151d;border-style: none;color: white;">
+                订单中心
+            </button>
+        </a>
+        <!--登录/登出按钮：根据session状态判断-->
+        <button th:text="${session.userId} eq null ? '登录':'登出' "
+                th:onclick="${session.userId} eq null ? 'userlogin()' : 'userlogout()' "
+                style="width: 60px;height: 42px;background: #ca151d;border-style: none;color: white;">
+        </button>
+
+        <script>
+            function userlogin() {
+                window.location.href = "http://localhost:8081/login";
+            }
+
+            function userlogout() {
+                $.ajax({
+                    url: '/logout',
+                    success: () => {
+                        window.location.href = "http://localhost:8081/";
+                    }
+                })
+            }
+
+            function changeinfo() {
+                window.location.href = "http://localhost:8081/changePwdhtml";
+            }
+        </script>
+        <!--登录/登出-->
+    </div>
+</div>
+
+<div class="main">
+    <table class="table table-hover table-bordered" style="width: 1200px; margin: auto">
+        <thead>
+        <tr>
+            <td style="display: none">购物车id</td>
+            <td style="display: none">用户id</td>
+            <td style="display: none">商品id</td>
+            <td>商品名</td>
+            <td>商品描述</td>
+            <td>价格</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="good : ${goods}">
+            <td th:text="${good.id}" style="display: none"></td>
+            <td th:text="${good.uid}" style="display: none"></td>
+            <td id="${good.gid}" th:text="${good.gid}" style="display: none"></td>
+            <td id="${good.name}" th:text="${good.name}"></td>
+            <td id="${good.describe}" th:text="${good.describe}"></td>
+            <td id="${good.price}" th:text="${good.price}"></td>
+            <!--                    <td><a href="" class="btn btn-success" th:onclick="'showOrder(\''+${good.gid}+'\',\''+${good.name}+'\',\''+${good.describe}+'\',\''+${good.price}+'\')'" type="button">购买</a><a type="button" th:href="@{/shoppingcart/deleteshoppingcart(id=${good.id})}" class="btn btn-danger">删除</a></td>-->
+            <td><a href="javascript:void(0);" class="btn btn-xs btn-success" onclick="showOrder(this)"
+                   th:data-id="${good.id}" th:data-gid="${good.gid }" th:data-name="${good.name }"
+                   th:data-describe="${good.describe }" th:data-price="${good.price }" type="button">购买</a><a
+                    type="button" th:href="@{/deleteshoppingcart(id=${good.id})}" class="btn btn-xs btn-danger">删除</a>
+            </td>
+            <!--                    <td><a type="button" th:href="@{/shoppingcart/deleteshoppingcart(id=${good.id})}" class="btn btn-danger">删除</a></td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="orderface" style="display: none">
+    <form class="form-horizontal" action="/insertorder">
+        <div class="form-group" style="display: none">
+            <label for="id" class="col-sm-2 control-label">id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="id" placeholder="订单id" disabled="disabled">
+            </div>
+        </div>
+        <div class="form-group" style="display: none">
+            <label for="gid" class="col-sm-2 control-label">gid</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="gid" placeholder="商品id" disabled="disabled">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">商品名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" placeholder="商品名" disabled="disabled">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="discribe" class="col-sm-2 control-label">商品描述</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="discribe" placeholder="商品描述" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="price" class="col-sm-2 control-label">商品单价</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="price" placeholder="商品单价" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="number" class="col-sm-2 control-label">商品数量</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="number" placeholder="商品数量" min="0"
+                       onchange="changedata()">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="total" class="col-sm-2 control-label">总费用</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="total" placeholder="总费用" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a type="button" onclick="subdata()" class="btn2 btn btn-default">购买</a>
+                <a onclick="quxiao()" type="button" class="btn1 btn btn-default">取消</a>
+            </div>
+        </div>
+    </form>
+    <!--        <form action="" method="get">-->
+    <!--            <input id="uid" type="text">-->
+    <!--            <input id="gid" type="text">-->
+    <!--            <input id="name" type="text">-->
+    <!--            <input id="discribe" type="text">-->
+    <!--            <input id="number" type="number">-->
+    <!--            <input id="total" type="text">-->
+    <!--            <button type="submit">购买</button>-->
+    <!--            <button type="button" onclick="quxiao()">取消</button>-->
+    <!--        </form>-->
+</div>
+
+<!-- fotter最下面 -->
+<div class="footer">
+    <div class="w">
+        <div class="copyright">
+            <img src="images/huaji.gif" alt="logo">
+            <!-- copyright -->
+            <div class="copy-right">
+                <p><a href="https://www.cnblogs.com/200ok" target="_blank">&copy; 2021 摸鱼小队</a>&emsp;
+                    <a href="https://beian.miit.gov.cn" target="_blank">鄂ICP备2021010294号</a>&emsp;
+                    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42280102000451"
+                       target="_blank">
+                        <img src="images/beian.png" alt="公网安备" width="13" height="13"/>鄂公网安备42280102000451号</a>
+                </p>
+            </div>
+            <!-- //copyright -->
+        </div>
+        <div class="linkes">
+            <dl>
+                <dt><a href="#">关于滑稽摸鱼商城</a></dt>
+                <dd><a href="#">关于</a></dd>
+                <dd><a href="#">管理团队</a></dd>
+                <dd><a href="#">工作机会</a></dd>
+                <dd><a href="#">客户服务</a></dd>
+                <dd><a href="#">帮助</a></dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .orderface {
+        background-image: url("images/秋日胡杨.jpg");
+        background-size: 100%;
+        width: 600px;
+        height: 400px;
+        position: absolute;
+        margin-left: -300px;
+        margin-top: -200px;
+        left: 50%;
+        top: 50%;
+    }
+
+    .form-horizontal {
+        width: 500px;
+        height: 300px;
+        padding-top: 70px;
+        position: absolute;
+        margin-top: -200px;
+        margin-left: -250px;
+        left: 50%;
+        top: 50%;
+    }
+
+    .btn2 {
+        float: left;
+    }
+
+    .btn1 {
+        float: right;
+    }
+
+    input {
+        background-color: transparent;
+    }
+
+    th {
+        text-align: center;
+        height: 60px;
+        vertical-align: middle !important;
+    }
+</style>
+<script>
+    function showOrder(e) {
+        console.log(e.getAttribute("data-id"));
+        console.log(e.getAttribute("data-gid"));
+        console.log(e.getAttribute("data-name"));
+        console.log(e.getAttribute("data-describe"));
+        console.log(e.getAttribute("data-price"));
+        $("#id").val(e.getAttribute("data-id"));
+        $("#gid").val(e.getAttribute("data-gid"));
+        $("#name").val(e.getAttribute("data-name"));
+        $("#discribe").val(e.getAttribute("data-describe"))
+        $("#price").val(e.getAttribute("data-price"));
+        $("#total").val(0);
+        $("#number").val(0);
+        $(".orderface").show();
+
+    }
+
+    function quxiao() {
+        $("#id").val("")
+        $("#gid").val("");
+        $("#name").val("");
+        $("#discribe").val("");
+        $("#price").val(0);
+        $("#total").val(0);
+        $("#number").val(0);
+        $(".orderface").hide();
+    }
+
+    function changedata() {
+        let price = $("#price").val();
+        let number = $("#number").val();
+        let total = price * number;
+        $("#total").val(total);
+    }
+
+    function subdata() {
+        let gid1 = $("#gid").val();
+        let count1 = $("#number").val();
+        let id = $("#id").val();
+        $.ajax({
+            url: "/insertOrder",
+            dataType: "json",
+            type: "GET",
+            data: {
+                gid: gid1,
+                count: count1
+            },
+            success: function (resp) {
+                if (resp) {
+                    alert("购买成功");
+                    quxiao();
+                    location.href = "/deleteshoppingcart?id=" + id;
+                    // $.ajax({
+                    //     url: "/deleteshoppingcart",
+                    //     data: {
+                    //         "id": id
+                    //     },
+                    //     type: "GET",
+                    //     dataType: "json",
+                    //     success: function (resp) {
+                    //         console.log(resp);
+                    //     }
+                    // })
+                } else {
+                    alert("购买失败");
+                }
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

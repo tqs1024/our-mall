@@ -37,7 +37,7 @@
              th:onclick="${session.userId} eq null ? '': 'changeinfo()' ">
         <span th:text="${session.username} eq null ? '欢迎，游客': '欢迎，'+${session.username} " style="color: red"></span>
         <!---->
-        <a th:href="@{/}">
+        <a th:href="@{/queryall}">
             <button
                     style="width: 60px;height: 42px;background: #fc600c;border-style: none;color: white;">
                 购物车
